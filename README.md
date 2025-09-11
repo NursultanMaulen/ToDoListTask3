@@ -2,6 +2,12 @@
 
 Modern desktop todo list application built with Wails, React, and PostgreSQL. Features a beautiful dark/light theme and responsive design.
 
+## Demo
+
+Watch the application in action:
+
+![Application Demo](./demo/demo.gif)
+
 ## Screenshots
 
 ### Light and Dark Themes
