@@ -1,0 +1,459 @@
+:root {
+  /* Light theme variables */
+  --light-bg-primary: #f5f5f5;
+  --light-bg-secondary: #ffffff;
+  --light-bg-tertiary: #f8f9fa;
+  --light-text-primary: #333;
+  --light-text-secondary: #666;
+  --light-border: rgba(0, 0, 0, 0.08);
+  --light-hover: #f0f0f0;
+  --light-input-bg: #f5f5f5;
+
+  /* Dark theme variables */
+  --dark-bg-primary: #1a1a1a;
+  --dark-bg-secondary: #2d2d2d;
+  --dark-bg-tertiary: #3d3d3d;
+  --dark-text-primary: #fff;
+  --dark-text-secondary: #ccc;
+  --dark-border: rgba(255, 255, 255, 0.08);
+  --dark-hover: #3d3d3d;
+  --dark-input-bg: #3d3d3d;
+
+  /* Common variables */
+  --primary-blue: #007bff;
+  --primary-blue-hover: #0056b3;
+  --success: #28a745;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --danger-hover: #c82333;
+  --gray: #6c757d;
+  --gray-hover: #5a6268;
+}
+
+#App {
+  min-height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
+  padding: 20px;
+  font-family: "Nunito", sans-serif;
+}
+
+.light-mode {
+  background-color: var(--light-bg-primary);
+  color: var(--light-text-primary);
+}
+
+.dark-mode {
+  background-color: var(--dark-bg-primary);
+  color: var(--dark-text-primary);
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.light-mode .container {
+  background-color: var(--light-bg-secondary);
+}
+
+.dark-mode .container {
+  background-color: var(--dark-bg-secondary);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2em;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  color: inherit;
+}
+
+.light-mode .theme-toggle:hover {
+  background-color: var(--light-hover);
+}
+
+.dark-mode .theme-toggle:hover {
+  background-color: var(--dark-hover);
+}
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.light-mode .filter-group {
+  background-color: var(--light-bg-tertiary);
+  border: 1px solid var(--light-border);
+}
+
+.dark-mode .filter-group {
+  background-color: var(--dark-bg-tertiary);
+  border: 1px solid var(--dark-border);
+}
+
+.filter-group label {
+  font-size: 0.9em;
+}
+
+.light-mode .filter-group label {
+  color: var(--light-text-secondary);
+}
+
+.dark-mode .filter-group label {
+  color: var(--dark-text-secondary);
+}
+
+.filter-group select {
+  border: none;
+  background: transparent;
+  font-size: 0.95em;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.light-mode .filter-group select {
+  color: var(--light-text-primary);
+  background-color: var(--light-input-bg);
+}
+
+.dark-mode .filter-group select {
+  color: var(--dark-text-primary);
+  background-color: var(--dark-input-bg);
+}
+
+/* Fallback for specific inputs */
+.priority-select {
+  color: var(--control-text);
+  background: var(--control-bg);
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: none;
+}
+
+/* Ensure option text remains visible in all themes */
+.priority-select option {
+  color: var(--control-text);
+  background: var(--control-bg);
+}
+
+/* Preserve native calendar/picker appearance for the date input */
+.date-input {
+  color: inherit;
+  background: transparent;
+  appearance: textfield;
+  -webkit-appearance: textfield;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  filter: none;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.task-input {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  font-size: 1em;
+  transition: all 0.3s;
+}
+
+.light-mode .task-input {
+  background-color: var(--light-input-bg);
+  color: var(--light-text-primary);
+  border-color: var(--light-border);
+}
+
+.dark-mode .task-input {
+  background-color: var(--dark-input-bg);
+  color: var(--dark-text-primary);
+  border-color: var(--dark-border);
+}
+
+.task-input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.add-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--primary-blue);
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-btn:hover {
+  background-color: var(--primary-blue-hover);
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.light-mode .task-item {
+  background-color: var(--light-bg-tertiary);
+  border: 1px solid var(--light-border);
+}
+
+.dark-mode .task-item {
+  background-color: var(--dark-bg-tertiary);
+  border: 1px solid var(--dark-border);
+}
+
+.task-item:hover {
+  transform: translateX(5px);
+}
+
+.task-checkbox {
+  margin-right: 15px;
+  font-size: 1.2em;
+}
+
+.task-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.task-text {
+  font-size: 1.1em;
+}
+
+.task-details {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  font-size: 0.9em;
+}
+
+.priority-badge {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.priority-badge.low {
+  background-color: var(--success);
+  color: white;
+}
+
+.priority-badge.medium {
+  background-color: var(--warning);
+  color: black;
+}
+
+.priority-badge.high {
+  background-color: var(--danger);
+  color: white;
+}
+
+.due-date {
+  color: #666;
+  padding: 2px 8px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.dark-mode .due-date {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ccc;
+}
+
+/* Кнопка удаления */
+.delete-btn {
+  background: none;
+  border: none;
+  color: #dc3545;
+  font-size: 1.5em;
+  cursor: pointer;
+  padding: 0 10px;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.task-item:hover .delete-btn {
+  opacity: 1;
+}
+
+.delete-btn:hover {
+  transform: scale(1.2);
+}
+
+/* Модальное окно */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.light-mode .modal {
+  background-color: var(--light-bg-secondary);
+  color: var(--light-text-primary);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .modal {
+  background-color: var(--dark-bg-secondary);
+  color: var(--dark-text-primary);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.modal h2 {
+  margin-top: 0;
+  font-size: 1.5em;
+}
+
+.modal p {
+  margin: 15px 0;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modal-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s;
+}
+
+.modal-btn.cancel {
+  background-color: var(--gray);
+  color: white;
+}
+
+.modal-btn.cancel:hover {
+  background-color: var(--gray-hover);
+}
+
+.modal-btn.confirm {
+  background-color: var(--danger);
+  color: white;
+}
+
+.modal-btn.confirm:hover {
+  background-color: var(--danger-hover);
+}
+
+.task-item.completed .task-text {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .container {
+    padding: 15px;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  .task-input,
+  .date-input,
+  .priority-select {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .add-btn {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
+
+  .task-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}
