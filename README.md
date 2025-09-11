@@ -54,7 +54,9 @@ cd ..
 CREATE DATABASE todo_list;
 ```
 
-4. Update the database connection settings in `internal/repository/postgres.go` if needed.
+4. Configure the database connection:
+   - Copy `config.example.json` to `config.json`
+   - Update the database settings in `config.json` with your PostgreSQL credentials
 
 ### Development
 

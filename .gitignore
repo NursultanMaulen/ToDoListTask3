@@ -1,3 +1,29 @@
-build/bin
-node_modules
-frontend/dist
+# Wails build output
+build/bin/
+build/windows/
+
+# Frontend build files
+frontend/dist/
+frontend/node_modules/
+frontend/wailsjs/
+
+# Go build files
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Database files
+*.db
+data.json
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+Thumbs.db

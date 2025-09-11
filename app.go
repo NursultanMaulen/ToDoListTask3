@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"os"
 	"sync"
 	"time"
 
@@ -11,28 +13,58 @@ import (
 	"myproject/internal/service"
 )
 
+// Config структура для конфигурации
+type Config struct {
+	Database struct {
+		Host     string `json:"host"`
+		Port     int    `json:"port"`
+		User     string `json:"user"`
+		Password string `json:"password"`
+		DBName   string `json:"dbname"`
+	} `json:"database"`
+}
+
 // App struct
 type App struct {
 	ctx         context.Context
 	taskService *service.TaskService
 	repo        *repository.PostgresRepository
 	initOnce    sync.Once
+	config      Config
 }
 
-// Конфигурация подключения к базе данных
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
-	password = "admin"
-	dbname   = "todolist"
-)
+// loadConfig загружает конфигурацию из файла
+func loadConfig() (Config, error) {
+	var config Config
+	
+	// Пытаемся загрузить config.json
+	file, err := os.ReadFile("config.json")
+	if err != nil {
+		// Если config.json не найден, пробуем загрузить пример конфигурации
+		file, err = os.ReadFile("config.example.json")
+		if err != nil {
+			return config, fmt.Errorf("error reading config file: %v", err)
+		}
+	}
+
+	if err := json.Unmarshal(file, &config); err != nil {
+		return config, fmt.Errorf("error parsing config file: %v", err)
+	}
+
+	return config, nil
+}
 
 // NewApp создает новый экземпляр приложения
 func NewApp() *App {
+	config, err := loadConfig()
+	if err != nil {
+		panic(fmt.Sprintf("Failed to load configuration: %v", err))
+	}
+
 	// Формируем строку подключения к PostgreSQL
 	connStr := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
+		config.Database.Host, config.Database.Port, config.Database.User, 
+		config.Database.Password, config.Database.DBName)
 
 	println("Connecting to database:", connStr)
 
@@ -60,6 +92,7 @@ func NewApp() *App {
 		ctx:         context.Background(),
 		taskService: taskService,
 		repo:        repo,
+		config:      config,
 	}
 }
 
@@ -70,10 +103,21 @@ func (a *App) ensureInitialized() {
 			a.ctx = context.Background()
 		}
 
-		// Если репозиторий не инициализирован (например, другой экземпляр был привязан), инициализируем его
+		// Если конфигурация не загружена, загружаем её
+		if (Config{}) == a.config {
+			config, err := loadConfig()
+			if err != nil {
+				println("Error loading config:", err.Error())
+				return
+			}
+			a.config = config
+		}
+
+		// Если репозиторий не инициализирован, инициализируем его
 		if a.repo == nil {
 			connStr := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-				host, port, user, password, dbname)
+				a.config.Database.Host, a.config.Database.Port, a.config.Database.User, 
+				a.config.Database.Password, a.config.Database.DBName)
 			println("ensureInitialized: connecting to database:", connStr)
 			repo, err := repository.NewPostgresRepository(connStr)
 			if err != nil {
