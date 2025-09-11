@@ -51,7 +51,7 @@ cd ..
 3. Set up the PostgreSQL database:
 
 ```sql
-CREATE DATABASE todo_list;
+CREATE DATABASE todolist;
 ```
 
 4. Configure the database connection:
