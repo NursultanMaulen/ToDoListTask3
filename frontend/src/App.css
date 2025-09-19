@@ -173,7 +173,7 @@ h1 {
 
 /* Ensure option text remains visible in all themes */
 .priority-select option {
-  color: var(--control-text);
+  color: black;
   background: var(--control-bg);
 }
 

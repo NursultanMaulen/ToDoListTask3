@@ -38,6 +38,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
+  
   // Фильтрация и сортировка
   const [statusFilter, setStatusFilter] = useState("all"); // all | active | completed
   const [sortBy, setSortBy] = useState("date_desc"); // date_desc | date_asc | priority
